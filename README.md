@@ -1,1 +1,1 @@
-# kck
+# Komunikacja człowiek-komputer
