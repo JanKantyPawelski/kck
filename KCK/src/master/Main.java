@@ -21,7 +21,11 @@ public class Main {
     }
 
     public Main() {
-        EventQueue.invokeLater(new Runnable() {
+        
+    	Gram gram = new Gram();
+    	gram.Gram();
+    	
+    	/*EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -37,7 +41,7 @@ public class Main {
                 frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
             }
-        });
+        });*/
     }
 
     public class Pane extends JPanel {
