@@ -23,6 +23,8 @@ okkier(dir(west)) --> [na, wschod].
 okkier(dir(rt)) --> [w, prawo].
 okkier(dir(straight)) --> [prosto].
 okkier(dir(lt)) --> [w, lewo].
+okkier(dir(up)) --> [w, gore].
+okkier(dir(down)) --> [w, dol].
 okkier(goal(X)) --> przyim(P), miejsce(P,X).
 
 przyim(dop) --> [do].
