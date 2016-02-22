@@ -1,14 +1,12 @@
 package master;
 
-public class Element {
+public class Player {
 	private int x;
 	private int y;
-	private String type;
 	
-	public Element(int x, int y, String type) {
+	public Player(int x, int y) {
 		this.x = x;
 		this.y = y;
-		this.type = type;
 	}
 	
 	public int x() {
@@ -17,9 +15,5 @@ public class Element {
 	
 	public int y() {
 		return this.y;
-	}
-	
-	public String type() {
-		return this.type;
 	}
 }
