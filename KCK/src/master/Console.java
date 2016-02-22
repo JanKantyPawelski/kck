@@ -41,6 +41,7 @@ public class Console extends JFrame {
 		console_frame.add(userText);
 		console_frame.add(consoleText);
 		
+		
 		Gram gram = new Gram();
 		Move move = new Move();
 		
@@ -49,17 +50,65 @@ public class Console extends JFrame {
 				consoleText.setText("");
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					
-					System.out.println(userText.getText()); 
-					System.out.println(gram.getPrologText(userText.getText()));
-										
-					//System.out.println(move.getCommand());  
-					consoleText.setText(move.getAnswer());
+					String command;
+					command = userText.getText();
+					command = command.toLowerCase();
+					command = RemoveAccent(command);
+					
+					if(command.equals("witaj") || command.equals("hej") || command.equals("czesc")){
+						consoleText.setText("Witam");
+					}
+					else if(command.equals("co mam robic") || command.equals("nie wiem co robic") || 
+							command.equals("?") || command.equals("co robic") ||
+							command.equals(" ") || command.equals("o co chodzi") ){
+						consoleText.setText("Powiedz mi gdzie mam isc");
+					}
+					
+					else if (command.equals("wyjdz") || command.equals("exit") || command.equals("koniec")||
+							command.equals("wyjscie") || command.equals("wychodze") || command.equals("zakoncz gre")){
+						System.exit(0);
+					}
+					else if (command.equals("idz") || command.equals("kieruj sie") || 
+							command.equals("jedz") || command.equals("pojdz") || command.equals("dojdz")){
+						consoleText.setText("Nie wiem gdzie. Napisz gdzie chcesz zebym szed³");
+					}
+					else if (command.equals("skrec")){
+						consoleText.setText("Nie wiem jak. Napisz jak mam skrecic");
+					}
+					else if (command.equals("cofnij") || command.equals("wroc")){
+						//Cofanie poprzedniego ruchu
+					}
+					else{
+						System.out.println(command); 
+						System.out.println(gram.getPrologText(command));
+					 	consoleText.setText(move.getAnswer());
+					}
 					userText.setText("");
 
 				}
 			}
 		});
 
+	}
+	public String RemoveAccent(String s)
+	{
+		return s.replace('¹', 'a')
+
+				.replace('æ', 'c')
+
+				.replace('ê', 'e')
+
+				.replace('³', 'l')
+
+				.replace('ñ', 'n')
+
+				.replace('ó', 'o')
+
+				.replace('œ', 's')
+
+				.replace('Ÿ', 'z')
+
+				.replace('¿', 'z');
 	}
 
 }
