@@ -34,8 +34,8 @@ public class Main {
 
 				// wywo³anie konsoli
 
-//				Console console = new Console();
-//				console.run_console();
+				Console console = new Console();
+				console.run_console();
 				
 				//wywo³anie nowej gry w ramce
 

@@ -7,6 +7,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/software/swiprolog/lib/jpl.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/swipl/lib/jpl.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

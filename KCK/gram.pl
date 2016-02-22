@@ -1,19 +1,13 @@
 
-
 zdanie(move(X,Y)) --> orz(X), okkier(Y).
-zdanie(move(X,Y)) --> [dojdz], przyimek(X), miejsce(X,Y).
-zdanie(move(X,Y)) --> [dojdz], przyimek(X), miejsce(X,Y), ok_sposobu.
-zdanie(move(X)) --> [min], miejsce(mian,X), ok_sposobu.
-zdanie(move(X)) --> [min], miejsce(mian,X).
-zdanie(move(X)) --> [obejdz], miejsce(mian,X), ok_sposobu.
-zdanie(move(X)) --> [objedz], miejsce(mian,X), ok_sposobu.
-zdanie(move(X)) --> [przejdz, obok], miejsce(mian,X).
-zdanie(move(X)) --> [przejdz], ok_sposobu, miejsce(dop,X).
+zdanie(move(X,Y)) --> orz1(X),okkier1(goal(Y)).
+zdanie(move(X,Y,Z)) --> orz1(X), okkier1(goal(Y)), ok_sposobu(Z).
 
 orz(walk) --> [idz].
 orz(turn) --> [skrec].
 orz(drive) --> [jedz].
 orz(head) --> [kieruj, sie].
+orz(go) --> [pojdz].
 
 okkier(dir(south)) --> [na, poludnie].
 okkier(dir(east)) --> [na, zachod].
@@ -27,15 +21,18 @@ okkier(dir(up)) --> [w, gore].
 okkier(dir(down)) --> [w, dol].
 okkier(goal(X)) --> przyim(P), miejsce(P,X).
 
+orz1(reach) --> [dojdz].
+okkier1(goal(X)) --> przyim(P), miejsce(P,X).
+
 przyim(dop) --> [do].
 
-ok_sposobu --> [z, prawej, strony].
-ok_sposobu --> [z, lewej, strony].
-ok_sposobu --> [z, prawej].
-ok_sposobu --> [z, lewej].
+ok_sposobu(right) --> [z, prawej, strony].
+ok_sposobu(left) --> [z, lewej, strony].
+ok_sposobu(right) --> [z, prawej].
+ok_sposobu(left) --> [z, lewej].
 
-miejsce(mian, monument) --> [pomnik].
-miejsce(dop, monument) --> [pomnika].
+miejsce(mian, fountain) --> [fantanna].
+miejsce(dop, fountain) --> [fontanny].
 miejsce(mian, mosque) --> [meczet].
 miejsce(dop, mosque) --> [meczetu].
 miejsce(mian, church) --> [kosciol].
