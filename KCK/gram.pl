@@ -31,8 +31,8 @@ ok_sposobu(left) --> [z, lewej, strony].
 ok_sposobu(right) --> [z, prawej].
 ok_sposobu(left) --> [z, lewej].
 
-miejsce(mian, fountain) --> [fantanna].
-miejsce(dop, fountain) --> [fontanny].
+miejsce(mian, monument) --> [pomnik].
+miejsce(dop, monument) --> [pomnika].
 miejsce(mian, mosque) --> [meczet].
 miejsce(dop, mosque) --> [meczetu].
 miejsce(mian, church) --> [kosciol].

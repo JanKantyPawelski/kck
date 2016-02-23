@@ -28,7 +28,7 @@ public class Game extends JPanel {
 	private int columnCount = 10;
 	private int rowCount = 10;
 	private List<Element> elements;
-	private Player player;
+	public static Player player;
 	private List<Rectangle> cells;
 	private List<Rectangle> createdElements;
 	private Rectangle createdPlayer;
@@ -51,10 +51,11 @@ public class Game extends JPanel {
 		elements.add(new Element(1, 7, "mosque"));
 		elements.add(new Element(5, 8, "restaurant"));
 		
-		player = new Player(4, 9);
+		player = new Player(Player.xn, Player.yn);
+		
 	}
 
-	private boolean elementExists(int x, int y) {
+	public boolean elementExists(int x, int y) {
 		boolean result = false;
 
 		for (Element element : elements) {
@@ -147,7 +148,7 @@ public class Game extends JPanel {
 		for (Rectangle element : createdElements) {
 			BufferedImage image = null;
 			
-			System.out.println("images/" + elements.get(i).type() + ".png");
+			//System.out.println("images/" + elements.get(i).type() + ".png");
 			
 			try {
 				image = ImageIO.read(new File("images/" + elements.get(i).type() + ".png"));

@@ -16,7 +16,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class Main {
-
+	public static Game KCK;
 	public static void main(String[] args) {
 		new Main();
 	}
@@ -42,7 +42,8 @@ public class Main {
 				JFrame frame = new JFrame("Projekt KCK");
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setLayout(new BorderLayout());
-				frame.add(new Game());
+				KCK=new Game();
+				frame.add(KCK);
 				frame.pack();
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
