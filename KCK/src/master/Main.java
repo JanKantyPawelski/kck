@@ -20,10 +20,6 @@ public class Main {
 	public static Console console;
 	
 	public static void main(String[] args) {
-		new Main();
-	}
-
-	public Main() {
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
@@ -31,7 +27,7 @@ public class Main {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {}
 
-				game = new Game();
+				game = new Game(4, 9, 0);
 				console = new Console();
 				
 				console.run_console();
@@ -46,5 +42,9 @@ public class Main {
 				frame.setVisible(true);
 			}
 		});
+	}
+	
+	public static void repaint(int x, int y, int direction) {
+		game = new Game(x, y, direction);
 	}
 }

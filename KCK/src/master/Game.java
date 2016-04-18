@@ -11,51 +11,46 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel; 
 
 public class Game extends JPanel {
-	private int columnCount = 10;
-	private int rowCount = 10;
+	public int columnCount = 10;
+	public int rowCount = 10;
 	
 	private List<Rectangle> cells;
 	
 	private List<Element> elements;
 	private List<Rectangle> createdElements;
 	
-	public static Player player;
+	public Player player;
 	private Rectangle createdPlayer;
 	
-	public Game() {
-		paint(4, 9, 0);
-	}
-	
-	public void paint(int x, int y, int direction) {
-		cells = new ArrayList<>(columnCount * rowCount);
+	public Game(int x, int y, int direction) {
+		this.cells = new ArrayList<>(this.columnCount * this.rowCount);
 		
-		elements = new ArrayList<Element>(10);
-		createdElements = new ArrayList<Rectangle>(10);
+		this.elements = new ArrayList<Element>(10);
+		this.createdElements = new ArrayList<Rectangle>(10);
 		
-		elements.add(new Element(1, 4, "hospital"));
-		elements.add(new Element(1, 7, "mosque"));
-		elements.add(new Element(2, 2, "castle"));
-		elements.add(new Element(2, 6, "church"));
-		elements.add(new Element(5, 2, "monument"));
-		elements.add(new Element(5, 8, "restaurant"));
-		elements.add(new Element(6, 5, "townhall"));
-		elements.add(new Element(8, 0, "park"));
-		elements.add(new Element(8, 6, "school"));
-		elements.add(new Element(9, 3, "baker"));
+		this.elements.add(new Element(1, 4, "hospital"));
+		this.elements.add(new Element(1, 7, "mosque"));
+		this.elements.add(new Element(2, 2, "castle"));
+		this.elements.add(new Element(2, 6, "church"));
+		this.elements.add(new Element(5, 2, "monument"));
+		this.elements.add(new Element(5, 8, "restaurant"));
+		this.elements.add(new Element(6, 5, "townhall"));
+		this.elements.add(new Element(8, 0, "park"));
+		this.elements.add(new Element(8, 6, "school"));
+		this.elements.add(new Element(9, 3, "baker"));
 		
-		player = new Player(x, y, direction);
+		this.player = new Player(x, y, direction);
 	}
 
 	public boolean elementExists(int x, int y) {
 		boolean result = false;
 		
-		for (Element element : elements) {
+		for (Element element : this.elements) {
 			if (element.x() == x && element.y() == y) {
 				result = true;
 				break;
@@ -66,7 +61,7 @@ public class Game extends JPanel {
 	}
 	
 	public boolean playerExists(int x, int y) {
-		if (player.x() == x && player.y() == y) {
+		if (this.player.x() == x && this.player.y() == y) {
 			return true;
 		}
 		
@@ -80,8 +75,8 @@ public class Game extends JPanel {
 	
 	@Override
 	public void invalidate() {
-		cells.clear();
-		createdElements.clear();
+		this.cells.clear();
+		this.createdElements.clear();
 		
 		super.invalidate();
 	}
@@ -95,38 +90,38 @@ public class Game extends JPanel {
 		int width = getWidth();
 		int height = getHeight();
 		
-		int cellWidth = width / columnCount;
-		int cellHeight = height / rowCount;
+		int cellWidth = width / this.columnCount;
+		int cellHeight = height / this.rowCount;
 		
-		int xOffset = (width - (columnCount * cellWidth)) / 2;
-		int yOffset = (height - (rowCount * cellHeight)) / 2;
+		int xOffset = (width - (this.columnCount * cellWidth)) / 2;
+		int yOffset = (height - (this.rowCount * cellHeight)) / 2;
 		
-		if (cells.isEmpty()) {
-			for (int row = 0; row < rowCount; row++) {
-				for (int col = 0; col < columnCount; col++) {
+		if (this.cells.isEmpty()) {
+			for (int row = 0; row < this.rowCount; row++) {
+				for (int col = 0; col < this.columnCount; col++) {
 					Rectangle cell = new Rectangle(xOffset + (col * cellWidth), yOffset + (row * cellHeight), cellWidth, cellHeight);
-					cells.add(cell);
+					this.cells.add(cell);
 					
 					if (elementExists(col, row)) {
 						Rectangle element = new Rectangle(xOffset + (col * cellWidth) + (cellWidth / 4), yOffset + (row * cellHeight) + (cellHeight / 4), cellWidth / 2, cellHeight / 2);
-						createdElements.add(element);
+						this.createdElements.add(element);
 					}
 					
 					if (playerExists(col, row)) {
-						createdPlayer = new Rectangle(xOffset + (col * cellWidth) + (cellWidth / 4), yOffset + (row * cellHeight) + (cellHeight / 4), cellWidth / 2, cellHeight / 2);
+						this.createdPlayer = new Rectangle(xOffset + (col * cellWidth) + (cellWidth / 4), yOffset + (row * cellHeight) + (cellHeight / 4), cellWidth / 2, cellHeight / 2);
 					}
 				}
 			}
 		}
 		
 		g2d.setColor(Color.GRAY);
-		for (Rectangle cell : cells) {
+		for (Rectangle cell : this.cells) {
 			g2d.draw(cell);
 		}
 		
 		int i = 0;
 		
-		for (Rectangle element : createdElements) {
+		for (Rectangle element : this.createdElements) {
 			BufferedImage image = null;
 			
 			try {
@@ -144,7 +139,7 @@ public class Game extends JPanel {
 		}
 		
 		g2d.setPaint(Color.GREEN);
-		g2d.fill(createdPlayer);
+		g2d.fill(this.createdPlayer);
 
 		g2d.dispose();
 	}	
