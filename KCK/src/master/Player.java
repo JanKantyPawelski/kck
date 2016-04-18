@@ -1,24 +1,31 @@
 package master;
 
 public class Player {
-	public static int xn=4;
-	public static int yn=9;
-	public static void set(int x,int y){
-		xn=x;
-		yn=y;
-	}
 	private int x;
 	private int y;
+	private int direction; 
 	
-	public Player(int x, int y) {
+	public Player(int x, int y, int direction) {
 		this.x = x;
 		this.y = y;
+		this.direction = direction;
 	}
+	
+	public void set(int x, int y, int direction) {
+		this.x = x;
+		this.y = y;
+		this.direction = direction;
+	}
+	
 	public int x() {
 		return this.x;
 	}
 	
 	public int y() {
 		return this.y;
+	}
+	
+	public int direction() {
+		return this.direction;
 	}
 }

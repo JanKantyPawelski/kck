@@ -16,39 +16,35 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class Main {
-	public static Game KCK;
+	public static Game game;
+	public static Console console;
+	
 	public static void main(String[] args) {
 		new Main();
 	}
 
 	public Main() {
-
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
 				try {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-						| UnsupportedLookAndFeelException ex) {
-				}
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {}
 
-				// wywo³anie konsoli
-
-				Console console = new Console();
+				game = new Game();
+				console = new Console();
+				
 				console.run_console();
 				
-				//wywo³anie nowej gry w ramce
-
-				JFrame frame = new JFrame("Projekt KCK");
+				JFrame frame = new JFrame("Zaginiony na wsi");
+				
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setLayout(new BorderLayout());
-				KCK=new Game();
-				frame.add(KCK);
+				frame.add(game);
 				frame.pack();
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
 			}
 		});
 	}
-
 }
