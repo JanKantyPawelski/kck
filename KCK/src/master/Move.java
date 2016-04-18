@@ -5,9 +5,9 @@ import java.util.Stack;
 public class Move {
 	private Stack<Player> history;
 
-	private static String command;
-	private static String answer;
-	private static String error = "Nie moge wykonac akcji.";
+	private String command;
+	private String answer;
+	private String error = "Nie moge wykonac akcji.";
 	
 	// repaint board
 	private void repaint(){
@@ -19,7 +19,7 @@ public class Move {
 		Main.game.player.set(x, y, direction);
 		
 		// add actual player position to history
-		this.history.push(Main.game.player);
+		// this.history.push(Main.game.player);
 		
 		this.repaint();
 	}
