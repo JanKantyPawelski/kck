@@ -3,37 +3,37 @@ package master;
 import java.util.Stack;
 
 public class Move {
-	private Stack<Player> history;
+	private static Stack<Player> history;
 
-	private String command;
-	private String answer;
-	private String error = "Nie moge wykonac akcji.";
+	private static String command;
+	private static String answer;
+	private static String error = "Nie moge wykonac akcji.";
 	
 	// repaint board
-	private void repaint(){
-		Main.repaint(Main.game.player.x(), Main.game.player.y(), Main.game.player.direction());
+	private static void repaint() {
+		Main.repaint(Game.player.x(), Game.player.y(), Game.player.direction());
 	}
 	
 	// change player coordinates & direction
-	private void movePlayer(int x, int y, int direction) {
-		Main.game.player.set(x, y, direction);
+	private static void movePlayer(int x, int y, int direction) {
+		Game.player.set(x, y, direction);
 		
 		// add actual player position to history
-		// this.history.push(Main.game.player);
+		// history.push(Game.player);
 		
-		this.repaint();
+		repaint();
 	}
 	
 	// change player coordinates
-	private void movePlayer(int x, int y) {
-		this.movePlayer(x, y, Main.game.player.direction());
+	private static void movePlayer(int x, int y) {
+		movePlayer(x, y, Game.player.direction());
 	}
 	
 	// check if between player and element are any objects
-	private boolean isPathClear(int x, int y) {
-		if (Main.game.player.x() == x) {
-			if (Main.game.player.x() < x) {
-				for (int i = Main.game.player.x() + 1; i < x; i++) {
+	private static boolean isPathClear(int x, int y) {
+		if (Game.player.x() == x) {
+			if (Game.player.x() < x) {
+				for (int i = Game.player.x() + 1; i < x; i++) {
 					if (Main.game.elementExists(i, y)) {
 						return false;
 					}
@@ -41,7 +41,7 @@ public class Move {
 			}
 			
 			else {
-				for (int i = x - 1; i > Main.game.player.x(); i--) {
+				for (int i = x - 1; i > Game.player.x(); i--) {
 					if (Main.game.elementExists(i, y)) {
 						return false;
 					}
@@ -50,8 +50,8 @@ public class Move {
 		}
 		
 		else {
-			if (Main.game.player.y() < y) {
-				for (int i = Main.game.player.y() + 1; i < y; i++) {
+			if (Game.player.y() < y) {
+				for (int i = Game.player.y() + 1; i < y; i++) {
 					if (Main.game.elementExists(x, i)) {
 						return false;
 					}
@@ -59,7 +59,7 @@ public class Move {
 			}
 			
 			else {
-				for (int i = y - 1; i > Main.game.player.y(); i--) {
+				for (int i = y - 1; i > Game.player.y(); i--) {
 					if (Main.game.elementExists(x, i)) {
 						return false;
 					}
@@ -71,55 +71,55 @@ public class Move {
 	}
 	
 	// move to coordinates with new direction
-	private void move(int x, int y, int direction) {
+	private static void move(int x, int y, int direction) {
 		int minX = 0;
 		int maxX = Main.game.columnCount - 1;
 		int minY = 0;
 		int maxY = Main.game.rowCount - 1;
 		
 		if (x < minX || x > maxX || y < minY || y > maxY || Main.game.elementExists(x, y)) {
-			this.answer = this.error;
+			answer = error;
 		}
 		
 		else {
-			this.movePlayer(x, y, direction);
+			movePlayer(x, y, direction);
 		}
 	}
 	
 	// move to coordinates
-	private void move(int x, int y) {
-		this.move(x, y, Main.game.player.direction());
+	private static void move(int x, int y) {
+		move(x, y, Game.player.direction());
 	}
 	
-	private void reach(int x, int y, String side) {
-		this.answer = error;
+	private static void reach(int x, int y, String side) {
+		answer = error;
 		return;
 	}
 	
 	// go straight to the element
-	private void reach(int x, int y) {
-		if ((Main.game.player.x() != x && Main.game.player.y() != y) || !isPathClear(x, y)) {
-			this.answer = error;
+	private static void reach(int x, int y) {
+		if ((Game.player.x() != x && Game.player.y() != y) || !isPathClear(x, y)) {
+			answer = error;
 			return;
 		}
 		
-		if (Main.game.player.x() == x) {
-			if (Main.game.player.x() > x) {
-				this.movePlayer(x - 1, y, 1);
+		if (Game.player.y() == y) {
+			if (Game.player.x() < x) {
+				movePlayer(x - 1, y, 1);
 			}
 			
 			else {
-				this.movePlayer(x + 1, y, 3);
+				movePlayer(x + 1, y, 3);
 			}
 		}
 		
 		else {
-			if (Main.game.player.y() > y) {
-				this.movePlayer(x, y - 1, 0);
+			if (Game.player.y() < y) {
+				movePlayer(x, y - 1, 0);
 			}
 			
 			else {
-				this.movePlayer(x, y + 1, 2);
+				movePlayer(x, y + 1, 2);
 			}
 		}
 	}
@@ -127,10 +127,10 @@ public class Move {
 //	private boolean Ex(int x, int y, boolean side) {
 //		int s=1;
 //		
-//		if (Main.game.player.x() == x || Main.game.player.y() == y) {
-//			if (Main.game.player.x() == x){
-//				if (Main.game.player.y() > y){
-//					for (int i = Main.game.player.y() - 1; i > y; i--) {
+//		if (Game.player.x() == x || Game.player.y() == y) {
+//			if (Game.player.x() == x){
+//				if (Game.player.y() > y){
+//					for (int i = Game.player.y() - 1; i > y; i--) {
 //						if (Main.game.elementExists(x, i))
 //							return false;
 //						
@@ -160,7 +160,7 @@ public class Move {
 //				}
 //				
 //				else {
-//					for (int i = Main.game.player.y() + 1; i < y; i++) {
+//					for (int i = Game.player.y() + 1; i < y; i++) {
 //						if (Main.game.elementExists(x, i))
 //							return false;
 //						
@@ -171,8 +171,8 @@ public class Move {
 //			}
 //			
 //			else {
-//				if(Main.game.player.x() > x){
-//					for (int i = Main.game.player.x() - 1; i > x; i--) {
+//				if(Game.player.x() > x){
+//					for (int i = Game.player.x() - 1; i > x; i--) {
 //						if (Main.game.elementExists(i, y))
 //							return false;
 //						
@@ -182,7 +182,7 @@ public class Move {
 //				}
 //				
 //				else {
-//					for (int i = Main.game.player.x() + 1; i < x; i++) {
+//					for (int i = Game.player.x() + 1; i < x; i++) {
 //						if (Main.game.elementExists(i, y))
 //							return false;
 //						
@@ -204,10 +204,10 @@ public class Move {
 //		private boolean Ex(int a, int b, boolean si){
 //			int s=1;
 //			
-//			if (Main.game.player.x() == a || Main.game.player.y() == b) {
-//				if (Main.game.player.x() == a) {
-//					if (Main.game.player.y() > b) {
-//						for (int i = Main.game.player.y() - 1; i > b; i--) {
+//			if (Game.player.x() == a || Game.player.y() == b) {
+//				if (Game.player.x() == a) {
+//					if (Game.player.y() > b) {
+//						for (int i = Game.player.y() - 1; i > b; i--) {
 //							if(Main.KCK.elementExists(a, i))
 //								return false;
 //							Player.set(a, i);
@@ -247,7 +247,7 @@ public class Move {
 //						}
 //					}
 //					else{
-//						for(int i=Main.game.player.y()+1;i<b;i++){
+//						for(int i=Game.player.y()+1;i<b;i++){
 //							if(Main.KCK.elementExists(a, i))return false;
 //							Player.set(a, i);
 //							E();
@@ -287,8 +287,8 @@ public class Move {
 //					}
 //				}
 //				else{
-//					if(Main.game.player.x()>a){
-//						for(int i=Main.game.player.x()-1;i>a;i--){
+//					if(Game.player.x()>a){
+//						for(int i=Game.player.x()-1;i>a;i--){
 //							if(Main.KCK.elementExists(i, b))return false;
 //							Player.set(i, b);
 //							E();
@@ -327,7 +327,7 @@ public class Move {
 //						}
 //					}
 //					else{
-//						for(int i=Main.game.player.x()+1;i<a;i++){
+//						for(int i=Game.player.x()+1;i<a;i++){
 //							if(Main.KCK.elementExists(i, b))return false;
 //							Player.set(i, b);
 //							E();
@@ -374,29 +374,29 @@ public class Move {
 //			return true;
 //		}
 	
-	public void setCommand(String prologOutput){  
-		this.command = prologOutput;
+	public static void setCommand(String prologOutput){  
+		command = prologOutput;
 	}
 	
-	public String getCommand(){
-		return this.command;
+	public static String getCommand(){
+		return command;
 	}
 	
-	public String getAnswer() {
-		switch (this.command) {
+	public static String getAnswer() {
+		switch (command) {
 			case "move(walk, dir(straight))":
 			case "move(head, dir(straight))":
 			case "move(drive, dir(straight))":
 			case "move(go, dir(straight))":
-				this.answer = "Ide prosto.";
+				answer = "Ide prosto.";
 				
 				int changeX = 0;
 				int changeY = 0;
 				
-				switch(Main.game.player.direction()) {
+				switch(Game.player.direction()) {
 					// north
 					case 0:
-						changeY = 1;
+						changeY = -1;
 						break;
 						
 					// east
@@ -406,7 +406,7 @@ public class Move {
 						
 					// south
 					case 2:
-						changeY = -1;
+						changeY = 1;
 						break;
 						
 					// west
@@ -415,7 +415,7 @@ public class Move {
 						break;
 				}
 				
-				this.move(Main.game.player.x() + changeX, Main.game.player.y() + changeY);
+				move(Game.player.x() + changeX, Game.player.y() + changeY);
 				break;
 				
 			case "move(walk, dir(north))":
@@ -426,9 +426,9 @@ public class Move {
 			case "move(drive, dir(up))":
 			case "move(go, dir(north))":
 			case "move(go, dir(up))":
-				this.answer = "Ide na polnoc.";
+				answer = "Ide na polnoc.";
 				
-				this.move(Main.game.player.x(), Main.game.player.y() + 1, 0);
+				move(Game.player.x(), Game.player.y() - 1, 0);
 				break;
 				
 			case "move(walk, dir(south))":
@@ -439,9 +439,9 @@ public class Move {
 			case "move(drive, dir(down))":
 			case "move(go, dir(south))":
 			case "move(go, dir(down))":
-				this.answer = "Ide na poludnie.";
+				answer = "Ide na poludnie.";
 				
-				this.move(Main.game.player.x(), Main.game.player.y() - 1, 2);
+				move(Game.player.x(), Game.player.y() + 1, 2);
 				break;
 				
 			case "move(walk, dir(west))":
@@ -452,9 +452,9 @@ public class Move {
 			case "move(drive, dir(lt))":
 			case "move(go, dir(west))":
 			case "move(go, dir(lt))":
-				this.answer = "Ide na zachod.";
+				answer = "Ide na zachod.";
 				
-				this.move(Main.game.player.x() - 1, Main.game.player.y(), 3);
+				move(Game.player.x() - 1, Game.player.y(), 3);
 				break;
 				
 			case "move(walk, dir(east))":
@@ -465,9 +465,9 @@ public class Move {
 			case "move(drive, dir(rt))":
 			case "move(go, dir(east))":
 			case "move(go, dir(rt))":
-				this.answer = "Ide na wschod.";
+				answer = "Ide na wschod.";
 				
-				this.move(Main.game.player.x() + 1, Main.game.player.y(), 1);
+				move(Game.player.x() + 1, Game.player.y(), 1);
 				break;
 				
 			case "move(walk, goal(hospital))":
@@ -475,9 +475,9 @@ public class Move {
 			case "move(drive, goal(hospital))":
 			case "move(go, goal(hospital))":
 			case "move(reach, goal(hospital))":
-				this.answer = "Ide do szpitala.";
+				answer = "Ide do szpitala.";
 				
-				this.reach(1, 4);
+				reach(1, 4);
 				break;
 				
 			case "move(walk, goal(mosque))":
@@ -485,9 +485,9 @@ public class Move {
 			case "move(drive, goal(mosque))":
 			case "move(go, goal(mosque))":
 			case "move(reach, goal(mosque))":
-				this.answer = "Ide do meczetu.";
+				answer = "Ide do meczetu.";
 				
-				this.reach(1, 7);
+				reach(1, 7);
 				break;
 				
 			case "move(walk, goal(castle))":
@@ -495,9 +495,9 @@ public class Move {
 			case "move(drive, goal(castle))":
 			case "move(go, goal(castle))":
 			case "move(reach, goal(castle))":
-				this.answer = "Ide do zamku.";
+				answer = "Ide do zamku.";
 				
-				this.reach(2, 2);
+				reach(2, 2);
 				break;
 				
 			case "move(walk, goal(church))":
@@ -505,9 +505,9 @@ public class Move {
 			case "move(drive, goal(church))":
 			case "move(go, goal(church))":
 			case "move(reach, goal(church))":
-				this.answer = "Ide do kosciola.";
+				answer = "Ide do kosciola.";
 				
-				this.reach(2, 6);
+				reach(2, 6);
 				break;
 				
 			case "move(walk, goal(monument))":
@@ -515,9 +515,9 @@ public class Move {
 			case "move(drive, goal(monument))":
 			case "move(go, goal(monument))":
 			case "move(reach, goal(monument))":
-				this.answer = "Ide do pomnika.";
+				answer = "Ide do pomnika.";
 				
-				this.reach(5, 2);
+				reach(5, 2);
 				break;
 				
 			case "move(walk, goal(restaurant))":
@@ -525,9 +525,9 @@ public class Move {
 			case "move(drive, goal(restaurant))":
 			case "move(go, goal(restaurant))":
 			case "move(reach, goal(restaurant))":
-				this.answer = "Ide do restauracji";
+				answer = "Ide do restauracji";
 				
-				this.reach(5, 8);
+				reach(5, 8);
 				break;
 				
 			case "move(walk, goal(townhall))":
@@ -535,9 +535,9 @@ public class Move {
 			case "move(drive, goal(townhall))":
 			case "move(go, goal(townhall))":
 			case "move(reach, goal(townhall))":
-				this.answer = "Ide do ratusza.";
+				answer = "Ide do ratusza.";
 				
-				this.reach(6, 5);
+				reach(6, 5);
 				break;
 				
 			case "move(walk, goal(park))":
@@ -545,9 +545,9 @@ public class Move {
 			case "move(drive, goal(park))":
 			case "move(go, goal(park))":
 			case "move(reach, goal(park))":
-				this.answer = "Ide do parku.";
+				answer = "Ide do parku.";
 				
-				this.reach(8, 0);
+				reach(8, 0);
 				break;
 				
 			case "move(walk, goal(school))":
@@ -555,9 +555,9 @@ public class Move {
 			case "move(drive, goal(school))":
 			case "move(go, goal(school))":
 			case "move(reach, goal(school))":
-				this.answer = "Ide do szkoly.";
+				answer = "Ide do szkoly.";
 				
-				this.reach(8, 6);
+				reach(1, 7);
 				break;
 				
 			case "move(walk, goal(baker))":
@@ -565,16 +565,16 @@ public class Move {
 			case "move(drive, goal(baker))":
 			case "move(go, goal(baker))":
 			case "move(reach, goal(baker))":
-				this.answer = "Ide do piekarni.";
+				answer = "Ide do piekarni.";
 				
-				this.reach(9, 3);
+				reach(9, 3);
 				break;
 				
 			default:
-				this.answer = "Komenda nie zostala rozpoznana.";
+				answer = "Komenda nie zostala rozpoznana.";
 		}
 		
-		return this.answer;
+		return answer;
 	}
 //			else if(command.equals("move(reach, fountain, left)")){
 //				if(Ex(5,2,true))
@@ -657,44 +657,44 @@ public class Move {
 //				answer = "Ide do restauracji z prawej strony";
 //			}
 //			else if(command.equals("move(turn, dir(rt))")){
-//				if(Main.game.player.x()==9||Main.KCK.elementExists(Main.game.player.x()+1, Main.game.player.y()));
+//				if(Game.player.x()==9||Main.KCK.elementExists(Game.player.x()+1, Game.player.y()));
 //				else{
-//				Player.set(Main.game.player.x()+1, Main.game.player.y());
+//				Player.set(Game.player.x()+1, Game.player.y());
 //				E();
 //				return "Skrecam w prawo";}
 //			}
 //			else if(command.equals("move(turn, dir(lt))")){
-//				if(Main.game.player.x()==0||Main.KCK.elementExists(Main.game.player.x()-1, Main.game.player.y()));
+//				if(Game.player.x()==0||Main.KCK.elementExists(Game.player.x()-1, Game.player.y()));
 //				else{
-//				Player.set(Main.game.player.x()-1, Main.game.player.y());
+//				Player.set(Game.player.x()-1, Game.player.y());
 //				E();
 //				answer = "Skrecam w lewo";}
 //			}
 //			else if(command.equals("move(turn, dir(south))")){
-//				if(Main.game.player.y()==9||Main.KCK.elementExists(Main.game.player.x(), Main.game.player.y()+1));
+//				if(Game.player.y()==9||Main.KCK.elementExists(Game.player.x(), Game.player.y()+1));
 //				else{
-//				Player.set(Main.game.player.x(), Main.game.player.y()+1);
+//				Player.set(Game.player.x(), Game.player.y()+1);
 //				E();
 //				answer = "Skrecam na poludnie";}
 //			}
 //			else if(command.equals("move(turn, dir(north))")){
-//				if(Main.game.player.y()==0||Main.KCK.elementExists(Main.game.player.x(), Main.game.player.y()-1));
+//				if(Game.player.y()==0||Main.KCK.elementExists(Game.player.x(), Game.player.y()-1));
 //				else{
-//				Player.set(Main.game.player.x(), Main.game.player.y()-1);
+//				Player.set(Game.player.x(), Game.player.y()-1);
 //				E();
 //				answer = "Skrecam na polnoc";}
 //			}
 //			else if(command.equals("move(turn, dir(west))")){
-//				if(Main.game.player.x()==9||Main.KCK.elementExists(Main.game.player.x()+1, Main.game.player.y()));
+//				if(Game.player.x()==9||Main.KCK.elementExists(Game.player.x()+1, Game.player.y()));
 //				else{
-//				Player.set(Main.game.player.x()+1, Main.game.player.y());
+//				Player.set(Game.player.x()+1, Game.player.y());
 //				E();
 //				answer = "Skrecam na wschod";}
 //			}
 //			else if(command.equals("move(turn, dir(east))")){
-//				if(Main.game.player.x()==0||Main.KCK.elementExists(Main.game.player.x()-1, Main.game.player.y()));
+//				if(Game.player.x()==0||Main.KCK.elementExists(Game.player.x()-1, Game.player.y()));
 //				else{
-//				Player.set(Main.game.player.x()-1, Main.game.player.y());
+//				Player.set(Game.player.x()-1, Game.player.y());
 //				E();
 //				answer = "Skrecam na zachod";}
 //			}

@@ -24,7 +24,7 @@ public class Game extends JPanel {
 	private List<Element> elements;
 	private List<Rectangle> createdElements;
 	
-	public Player player;
+	public static Player player;
 	private Rectangle createdPlayer;
 	
 	public Game(int x, int y, int direction) {

@@ -79,8 +79,8 @@ public class Console extends JFrame {
 						//Cofanie poprzedniego ruchu
 					}
 					else{
-						System.out.println(command); 
-						System.out.println(gram.getPrologText(command));
+						System.out.println(command);
+						System.out.println(gram.getPrologText(command));  
 					 	consoleText.setText(move.getAnswer());
 					}
 					userText.setText("");
