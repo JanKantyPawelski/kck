@@ -43,8 +43,8 @@ public class Game extends JPanel {
 		this.elements.add(new Element(8, 0, "park"));
 		this.elements.add(new Element(8, 6, "school"));
 		this.elements.add(new Element(9, 3, "baker"));
-		
-		this.player = new Player(x, y, direction);
+
+		player = new Player(x, y, direction);
 	}
 
 	public boolean elementExists(int x, int y) {
@@ -61,7 +61,7 @@ public class Game extends JPanel {
 	}
 	
 	public boolean playerExists(int x, int y) {
-		if (this.player.x() == x && this.player.y() == y) {
+		if (player.x() == x && player.y() == y) {
 			return true;
 		}
 		

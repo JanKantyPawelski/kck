@@ -5,6 +5,8 @@ public class Player {
 	private int y;
 	private int direction; 
 	
+	public Player(int direction) {}
+	
 	public Player(int x, int y, int direction) {
 		this.x = x;
 		this.y = y;

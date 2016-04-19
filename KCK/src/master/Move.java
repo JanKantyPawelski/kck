@@ -91,9 +91,33 @@ public class Move {
 		move(x, y, Game.player.direction());
 	}
 	
-	private static void reach(int x, int y, String side) {
-		answer = error;
-		return;
+	private static void turn(int direction) {
+		if (direction == Game.player.direction()) {
+			answer = error;
+			return;
+		}
+		
+		switch(direction) {
+			// north
+			case 0:
+				move(Game.player.x(), Game.player.y() - 1, 0);
+				break;
+				
+			// east
+			case 1:
+				move(Game.player.x() + 1, Game.player.y(), 1);
+				break;
+				
+			// south
+			case 2:
+				move(Game.player.x(), Game.player.y() + 1, 2);
+				break;
+				
+			// west
+			case 3:
+				move(Game.player.x() - 1, Game.player.y(), 3);
+				break;
+		}
 	}
 	
 	// go straight to the element
@@ -122,6 +146,32 @@ public class Move {
 				movePlayer(x, y + 1, 2);
 			}
 		}
+	}
+	
+	// go straight to the element and stand on left / right side of it
+	private static void reach(int x, int y, String side) {
+		answer = error;
+		return;
+		
+//		reach(x, y);
+//		
+//		switch(Game.player.direction()) {
+//			// north
+//			case 0:
+//				break;
+//				
+//			// east
+//			case 1:
+//				break;
+//				
+//			// south
+//			case 2:
+//				break;
+//				
+//			// west
+//			case 3:
+//				break;
+//		}
 	}
 	
 //	private boolean Ex(int x, int y, boolean side) {
@@ -431,6 +481,13 @@ public class Move {
 				move(Game.player.x(), Game.player.y() - 1, 0);
 				break;
 				
+			case "move(turn, dir(north))":
+			case "move(turn, dir(up))":
+				answer = "Skrecam w gore.";
+				
+				turn(0);
+				break;
+				
 			case "move(walk, dir(south))":
 			case "move(walk, dir(down))":
 			case "move(head, dir(south))":
@@ -442,6 +499,13 @@ public class Move {
 				answer = "Ide na poludnie.";
 				
 				move(Game.player.x(), Game.player.y() + 1, 2);
+				break;
+				
+			case "move(turn, dir(sounth))":
+			case "move(turn, dir(down))":
+				answer = "Skrecam w dol.";
+				
+				turn(2);
 				break;
 				
 			case "move(walk, dir(west))":
@@ -457,6 +521,13 @@ public class Move {
 				move(Game.player.x() - 1, Game.player.y(), 3);
 				break;
 				
+			case "move(turn, dir(west))":
+			case "move(turn, dir(lt))":
+				answer = "Skrecam w lewo.";
+				
+				turn(3);
+				break;
+				
 			case "move(walk, dir(east))":
 			case "move(walk, dir(rt))":
 			case "move(head, dir(east))":
@@ -470,6 +541,13 @@ public class Move {
 				move(Game.player.x() + 1, Game.player.y(), 1);
 				break;
 				
+			case "move(turn, dir(east))":
+			case "move(turn, dir(rt))":
+				answer = "Skrecam w prawo.";
+				
+				turn(1);
+				break;
+				
 			case "move(walk, goal(hospital))":
 			case "move(head, goal(hospital))":
 			case "move(drive, goal(hospital))":
@@ -478,6 +556,18 @@ public class Move {
 				answer = "Ide do szpitala.";
 				
 				reach(1, 4);
+				break;
+				
+			case "move(reach, hospital, left)":
+				answer = "Ide do szpitala. Obchodzê go z lewej strony.";
+				
+				reach(1, 4, "left");
+				break;
+				
+			case "move(reach, hospital, right)":
+				answer = "Ide do szpitala. Obchodzê go z prawej strony.";
+				
+				reach(1, 4, "right");
 				break;
 				
 			case "move(walk, goal(mosque))":
@@ -490,6 +580,18 @@ public class Move {
 				reach(1, 7);
 				break;
 				
+			case "move(reach, mosque, left)":
+				answer = "Ide do meczetu. Obchodzê go z lewej strony.";
+				
+				reach(1, 4, "left");
+				break;
+				
+			case "move(reach, mosque, right)":
+				answer = "Ide do meczetu. Obchodzê go z prawej strony.";
+				
+				reach(1, 4, "right");
+				break;
+				
 			case "move(walk, goal(castle))":
 			case "move(head, goal(castle))":
 			case "move(drive, goal(castle))":
@@ -498,6 +600,18 @@ public class Move {
 				answer = "Ide do zamku.";
 				
 				reach(2, 2);
+				break;
+				
+			case "move(reach, castle, left)":
+				answer = "Ide do zamku. Obchodzê go z lewej strony.";
+				
+				reach(1, 4, "left");
+				break;
+				
+			case "move(reach, castle, right)":
+				answer = "Ide do zamku. Obchodzê go z prawej strony.";
+				
+				reach(1, 4, "right");
 				break;
 				
 			case "move(walk, goal(church))":
@@ -510,6 +624,18 @@ public class Move {
 				reach(2, 6);
 				break;
 				
+			case "move(reach, church, left)":
+				answer = "Ide do kosciola. Obchodzê go z lewej strony.";
+				
+				reach(1, 4, "left");
+				break;
+				
+			case "move(reach, church, right)":
+				answer = "Ide do kosciola. Obchodzê go z prawej strony.";
+				
+				reach(1, 4, "right");
+				break;
+				
 			case "move(walk, goal(monument))":
 			case "move(head, goal(monument))":
 			case "move(drive, goal(monument))":
@@ -518,6 +644,18 @@ public class Move {
 				answer = "Ide do pomnika.";
 				
 				reach(5, 2);
+				break;
+				
+			case "move(reach, monument, left)":
+				answer = "Ide do pomnika. Obchodzê go z lewej strony.";
+				
+				reach(1, 4, "left");
+				break;
+				
+			case "move(reach, monument, right)":
+				answer = "Ide do pomnika. Obchodzê go z prawej strony.";
+				
+				reach(1, 4, "right");
 				break;
 				
 			case "move(walk, goal(restaurant))":
@@ -530,6 +668,18 @@ public class Move {
 				reach(5, 8);
 				break;
 				
+			case "move(reach, restaurant, left)":
+				answer = "Ide do restauracji. Obchodzê ja z lewej strony.";
+				
+				reach(1, 4, "left");
+				break;
+				
+			case "move(reach, restaurant, right)":
+				answer = "Ide do restauracji. Obchodzê ja z prawej strony.";
+				
+				reach(1, 4, "right");
+				break;
+				
 			case "move(walk, goal(townhall))":
 			case "move(head, goal(townhall))":
 			case "move(drive, goal(townhall))":
@@ -538,6 +688,18 @@ public class Move {
 				answer = "Ide do ratusza.";
 				
 				reach(6, 5);
+				break;
+				
+			case "move(reach, townhall, left)":
+				answer = "Ide do ratusza. Obchodzê go z lewej strony.";
+				
+				reach(1, 4, "left");
+				break;
+				
+			case "move(reach, townhall, right)":
+				answer = "Ide do ratusza. Obchodzê go z prawej strony.";
+				
+				reach(1, 4, "right");
 				break;
 				
 			case "move(walk, goal(park))":
@@ -550,6 +712,18 @@ public class Move {
 				reach(8, 0);
 				break;
 				
+			case "move(reach, park, left)":
+				answer = "Ide do parku. Obchodzê go z lewej strony.";
+				
+				reach(1, 4, "left");
+				break;
+				
+			case "move(reach, park, right)":
+				answer = "Ide do parku. Obchodzê go z prawej strony.";
+				
+				reach(1, 4, "right");
+				break;
+				
 			case "move(walk, goal(school))":
 			case "move(head, goal(school))":
 			case "move(drive, goal(school))":
@@ -557,7 +731,19 @@ public class Move {
 			case "move(reach, goal(school))":
 				answer = "Ide do szkoly.";
 				
-				reach(1, 7);
+				reach(8, 6);
+				break;
+				
+			case "move(reach, school, left)":
+				answer = "Ide do szkoly. Obchodzê ja z lewej strony.";
+				
+				reach(1, 4, "left");
+				break;
+				
+			case "move(reach, school, right)":
+				answer = "Ide do szkoly. Obchodzê ja z prawej strony.";
+				
+				reach(1, 4, "right");
 				break;
 				
 			case "move(walk, goal(baker))":
@@ -570,136 +756,22 @@ public class Move {
 				reach(9, 3);
 				break;
 				
+			case "move(reach, baker, left)":
+				answer = "Ide do piekarni. Obchodzê ja z lewej strony.";
+				
+				reach(1, 4, "left");
+				break;
+				
+			case "move(reach, baker, right)":
+				answer = "Ide do piekarni. Obchodzê ja z prawej strony.";
+				
+				reach(1, 4, "right");
+				break;
+				
 			default:
 				answer = "Komenda nie zostala rozpoznana.";
 		}
 		
 		return answer;
 	}
-//			else if(command.equals("move(reach, fountain, left)")){
-//				if(Ex(5,2,true))
-//				answer = "Ide do pomnika z lewej strony";
-//			}
-//			else if(command.equals("move(reach, fountain, right)")){
-//				if(Ex(5,3,false))
-//				answer = "Ide do pomnika z prawej strony";
-//			}
-//			else if(command.equals("move(reach, mosque, left)")){
-//				if(Ex(1,7,true))
-//				answer = "Ide do meczetu z lewej strony";
-//			}
-//			else if(command.equals("move(reach, mosque, right)")){
-//				if(Ex(1,7,false))
-//				answer = "Ide do meczetu z prawej strony";
-//			}
-//			else if(command.equals("move(reach, church, left)")){
-//				if(Ex(2,6,true))
-//				answer = "Ide do kosciola z lewej strony";
-//			}
-//			else if(command.equals("move(reach, church, right)")){
-//				if(Ex(2,6,false))
-//				answer = "Ide do kosciola z prawej strony";
-//			}
-//			else if(command.equals("move(reach, townhall, left)")){
-//				if(Ex(6,5,true))
-//				answer = "Ide do ratusza z lewej strony";
-//			}
-//			else if(command.equals("move(reach, townhall, right)")){
-//				if(Ex(6,5,false))
-//				answer = "Ide do ratusza z prawej strony";
-//			}
-//			else if(command.equals("move(reach, hospital, left)")){
-//				if(Ex(1,4,true))
-//				answer = "Ide do szpitala z lewej strony";
-//			}
-//			else if(command.equals("move(reach, hospital, right)")){
-//				if(Ex(1,4,false))
-//				answer = "Ide do szpitala z prawej strony";
-//			}
-//			else if(command.equals("move(reach, baker, left)")){
-//				if(Ex(9,3,true))
-//				answer = "Ide do piekarni z lewej strony";
-//			}
-//			else if(command.equals("move(reach, baker, right)")){
-//				if(Ex(9,3,false))
-//				answer = "Ide do piekarni z prawej strony";
-//			}
-//			else if(command.equals("move(reach, castle, left)")){
-//				if(Ex(2,2,true))
-//				answer = "Ide do zamku z lewej strony";
-//			}
-//			else if(command.equals("move(reach, castle, right)")){
-//				if(Ex(2,2,false))
-//				answer = "Ide do zamku z prawej strony";
-//			}
-//			else if(command.equals("move(reach, school, left)")){
-//				if(Ex(8,6,true))
-//				answer = "Ide do szkoly z lewej strony";
-//			}
-//			else if(command.equals("move(reach, school, right)")){
-//				if(Ex(8,6,false))
-//				answer = "Ide do szkoly z prawej strony";
-//			}
-//			else if(command.equals("move(reach, park, left)")){
-//				if(Ex(8,0,true))
-//				answer = "Ide do parku z lewej strony";
-//			}
-//			else if(command.equals("move(reach, park, right)")){
-//				if(Ex(8,0,false))
-//				answer = "Ide do parku z prawej strony";
-//			}
-//			else if(command.equals("move(reach, restaurant, left)")){
-//				if(Ex(5,8,true))
-//				answer = "Ide do restauracji z lewej strony";
-//			}
-//			else if(command.equals("move(reach, restaurant, right)")){
-//				if(Ex(5,8,false))
-//				answer = "Ide do restauracji z prawej strony";
-//			}
-//			else if(command.equals("move(turn, dir(rt))")){
-//				if(Game.player.x()==9||Main.KCK.elementExists(Game.player.x()+1, Game.player.y()));
-//				else{
-//				Player.set(Game.player.x()+1, Game.player.y());
-//				E();
-//				return "Skrecam w prawo";}
-//			}
-//			else if(command.equals("move(turn, dir(lt))")){
-//				if(Game.player.x()==0||Main.KCK.elementExists(Game.player.x()-1, Game.player.y()));
-//				else{
-//				Player.set(Game.player.x()-1, Game.player.y());
-//				E();
-//				answer = "Skrecam w lewo";}
-//			}
-//			else if(command.equals("move(turn, dir(south))")){
-//				if(Game.player.y()==9||Main.KCK.elementExists(Game.player.x(), Game.player.y()+1));
-//				else{
-//				Player.set(Game.player.x(), Game.player.y()+1);
-//				E();
-//				answer = "Skrecam na poludnie";}
-//			}
-//			else if(command.equals("move(turn, dir(north))")){
-//				if(Game.player.y()==0||Main.KCK.elementExists(Game.player.x(), Game.player.y()-1));
-//				else{
-//				Player.set(Game.player.x(), Game.player.y()-1);
-//				E();
-//				answer = "Skrecam na polnoc";}
-//			}
-//			else if(command.equals("move(turn, dir(west))")){
-//				if(Game.player.x()==9||Main.KCK.elementExists(Game.player.x()+1, Game.player.y()));
-//				else{
-//				Player.set(Game.player.x()+1, Game.player.y());
-//				E();
-//				answer = "Skrecam na wschod";}
-//			}
-//			else if(command.equals("move(turn, dir(east))")){
-//				if(Game.player.x()==0||Main.KCK.elementExists(Game.player.x()-1, Game.player.y()));
-//				else{
-//				Player.set(Game.player.x()-1, Game.player.y());
-//				E();
-//				answer = "Skrecam na zachod";}
-//			}
-//			else
-//				answer = "Niemozliwe!";
-//			return answer;
-//		}		
 }
